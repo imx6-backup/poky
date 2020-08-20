@@ -64,7 +64,9 @@ conffiles = "${sysconfdir}/debian_version ${sysconfdir}/host.conf \
 #
 # The hostname can be changed outside of this recipe by using
 # hostname_pn-base-files = "my-host-name".
-hostname = "${MACHINE}"
+#hostname = "${MACHINE}"
+hostname = "Trux-D01"
+D01_BSP_VERSION = "\r Rootfs Version : TRUX-iMX6UL-D01-V.1.0.0-YoctoKrogoth\n"
 
 BASEFILESISSUEINSTALL ?= "do_install_basefilesissue"
 
@@ -141,6 +143,11 @@ do_install_basefilesissue () {
 	fi
 
 	install -m 644 ${WORKDIR}/issue*  ${D}${sysconfdir}
+	        if [ -n "${D01_BSP_VERSION}" ]; then
+                printf "${D01_BSP_VERSION} " >> ${D}${sysconfdir}/issue
+                printf "${D01_BSP_VERSION} " >> ${D}${sysconfdir}/issue.net
+        fi
+
         if [ -n "${DISTRO_NAME}" ]; then
 		printf "${DISTRO_NAME} " >> ${D}${sysconfdir}/issue
 		printf "${DISTRO_NAME} " >> ${D}${sysconfdir}/issue.net
