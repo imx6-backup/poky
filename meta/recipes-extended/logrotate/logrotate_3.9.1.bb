@@ -1,6 +1,7 @@
 SUMMARY = "Rotates, compresses, removes and mails system log files"
 SECTION = "console/utils"
-HOMEPAGE = "https://fedorahosted.org/logrotate/"
+#HOMEPAGE = "https://fedorahosted.org/logrotate/"
+HOMEPAGE = "https://fedorahosted.org/logrotate/issues"
 LICENSE = "GPLv2"
 
 # TODO: logrotate 3.8.8 adds autotools/automake support, update recipe to use it.
@@ -10,14 +11,20 @@ DEPENDS="coreutils popt"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=18810669f13b87348459e611d31ab760"
 
-SRC_URI = "https://fedorahosted.org/releases/l/o/logrotate/logrotate-${PV}.tar.gz \
+S = "${WORKDIR}/${BPN}-r3-9-1"
+
+UPSTREAM_CHECK_URI = "https://github.com/${BPN}/${BPN}/releases"
+
+SRC_URI = "https://github.com/${BPN}/${BPN}/archive/r3-9-1.tar.gz \
            file://act-as-mv-when-rotate.patch \
            file://update-the-manual.patch \
            file://disable-check-different-filesystems.patch \
             "
 
-SRC_URI[md5sum] = "4492b145b6d542e4a2f41e77fa199ab0"
-SRC_URI[sha256sum] = "022769e3288c80981559a8421703c88e8438b447235e36dd3c8e97cd94c52545"
+# Checksum changed due to tarball source folder changes in upstream
+                       
+SRC_URI[md5sum] = "8572b7c2cf9ade09a8a8e10098500fb3"
+SRC_URI[sha256sum] = "5bf8e478c428e7744fefa465118f8296e7e771c981fb6dffb7527856a0ea3617"
 
 PACKAGECONFIG ?= "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'acl', 'acl', '', d)} \
